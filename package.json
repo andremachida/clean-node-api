@@ -24,7 +24,9 @@
     }
   },
   "standard": {
-    "env": ["jest"]
+    "env": [
+      "jest"
+    ]
   },
   "author": "Andre Machida <andmachida@gmail.com>",
   "license": "ISC",
@@ -36,6 +38,7 @@
   },
   "dependencies": {
     "express": "^4.17.1",
-    "mongoose": "^5.10.0"
+    "mongoose": "^5.10.0",
+    "validator": "^13.1.1"
   }
 }
