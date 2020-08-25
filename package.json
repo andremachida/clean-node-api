@@ -1,0 +1,17 @@
+{
+  "name": "clean-node-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Andre Machida <andmachida@gmail.com>",
+  "license": "ISC",
+  "devDependencies": {
+    "husky": "^4.2.5",
+    "jest": "^26.4.2",
+    "lint-staged": "^10.2.11",
+    "standard": "^14.3.4"
+  }
+}
