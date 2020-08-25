@@ -4,7 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "jest"
+    "test": "jest --watchAll",
+    "test:staged": "jest"
+  },
+  "lint-staged": {
+    "*.js": [
+      "standard --fix",
+      "npm run test:staged",
+      "git add"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "standard": {
+    "env": ["jest"]
   },
   "author": "Andre Machida <andmachida@gmail.com>",
   "license": "ISC",
@@ -13,5 +29,9 @@
     "jest": "^26.4.2",
     "lint-staged": "^10.2.11",
     "standard": "^14.3.4"
+  },
+  "dependencies": {
+    "express": "^4.17.1",
+    "mongoose": "^5.10.0"
   }
 }
