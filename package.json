@@ -2,9 +2,10 @@
   "name": "clean-node-api",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "src/main/index.js",
   "scripts": {
-    "test": "jest --silent --colors --passWithNoTests",
+    "start": "node src/main/index.js",
+    "test": "jest --silent --colors --passWithNoTests --runInBand",
     "test:unit": "npm test -- --watch -c jest-unit-config.js",
     "test:integration": "npm test -- --watch -c jest-integration-config.js",
     "test:staged": "npm test -- --findRelatedTests",
@@ -35,11 +36,13 @@
     "husky": "^4.2.5",
     "jest": "^26.4.2",
     "lint-staged": "^10.2.11",
-    "standard": "^14.3.4"
+    "standard": "^14.3.4",
+    "supertest": "^4.0.2"
   },
   "dependencies": {
     "bcrypt": "^5.0.0",
     "express": "^4.17.1",
+    "fast-glob": "^3.2.4",
     "jsonwebtoken": "^8.5.1",
     "mongodb": "^3.6.1",
     "mongoose": "^5.10.0",
