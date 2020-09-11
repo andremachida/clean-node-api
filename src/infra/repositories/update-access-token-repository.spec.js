@@ -3,28 +3,19 @@ const UpdateAccessTokenRepository = require('./update-access-token-repository')
 
 const MissingParamError = require('../../utils/errors/missing-param-error')
 
-let db
+let userModel, fakeUserId
 
 const makeSut = () => {
-  const userModel = db.collection('users')
-  const sut = new UpdateAccessTokenRepository(userModel)
-
-  return {
-    sut,
-    userModel
-  }
+  return new UpdateAccessTokenRepository()
 }
 
 describe('UpdateAccessTokenRepository', () => {
-  let fakeUserId
-
   beforeAll(async () => {
     await MongoHelper.connect(process.env.MONGO_URL)
-    db = await MongoHelper.getDb()
+    userModel = await MongoHelper.getCollection('users')
   })
 
   beforeEach(async () => {
-    const userModel = db.collection('users')
     await userModel.deleteMany()
 
     const fakeUser = await userModel.insertOne({
@@ -40,7 +31,7 @@ describe('UpdateAccessTokenRepository', () => {
   })
 
   test('Should update the user with the given access token', async () => {
-    const { sut, userModel } = makeSut()
+    const sut = makeSut()
 
     await sut.update(fakeUserId, 'valid_token')
 
@@ -49,16 +40,8 @@ describe('UpdateAccessTokenRepository', () => {
     expect(updatedFakeUser.accessToken).toBe('valid_token')
   })
 
-  test('Should throw exception if no userModel provided', async () => {
-    const sut = new UpdateAccessTokenRepository()
-
-    const promise = sut.update(fakeUserId, 'valid_token')
-
-    expect(promise).rejects.toThrow()
-  })
-
   test('Should throw exception if no params provided', async () => {
-    const { sut } = makeSut()
+    const sut = makeSut()
 
     expect(sut.update()).rejects.toThrow(new MissingParamError('userId'))
     expect(sut.update(fakeUserId)).rejects.toThrow(new MissingParamError('accessToken'))
